@@ -38,7 +38,7 @@ public class Model {
 		for (Base base : bases) {
 			System.out.println("Nom de la base : " + base.getNomBase());
 			System.out.println("Coût de la base : " + base.getCoutBase());
-			for (String nomEntreprise : base.getNomEntreprises()) {
+			for (String nomEntreprise : base.getEntreprises()) {
 				System.out.println(nomEntreprise);
 			}
 			System.out.println("\n");

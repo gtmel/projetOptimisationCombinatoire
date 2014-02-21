@@ -18,7 +18,7 @@ public class LecteurEntreprises {
 	
 	public ArrayList<Entreprise> lire() {
 		int compteurLignes = 0;
-		int nombreLignesSupposees = 0;
+		int nombreEntreprises = 0;
 		ArrayList<Entreprise> entreprises = new ArrayList<Entreprise>();
 		
 		try{
@@ -28,7 +28,7 @@ public class LecteurEntreprises {
 			String ligne;
 			while ((ligne = br.readLine()) != null){
 				if (compteurLignes == 0) {
-					nombreLignesSupposees = Integer.valueOf(ligne);
+					nombreEntreprises = Integer.valueOf(ligne);
 					compteurLignes++;
 				} else {
 					Entreprise entreprise = new Entreprise(ligne);
@@ -44,7 +44,7 @@ public class LecteurEntreprises {
 		
 		// On vérifie que le nombre d'entreprises
 		// correspond à celui du fichier.
-		if (entreprises.size() != nombreLignesSupposees) {
+		if (entreprises.size() != nombreEntreprises) {
 			System.err.println("LE NOMBRE D'ENTREPRISES NE CORRESPOND PAS !!!");
 		}
 		

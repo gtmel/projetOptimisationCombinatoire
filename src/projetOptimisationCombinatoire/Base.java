@@ -6,10 +6,12 @@ public class Base {
 	
 	private String nomBase;
 	private int coutBase;
-	private ArrayList<String> nomEntreprises;
+	private ArrayList<String> entreprises;
 	
-	public Base() {
-		
+	public Base(String nomBase, int coutBase, ArrayList<String> entreprises) {
+		this.nomBase = nomBase;
+		this.coutBase = coutBase;
+		this.entreprises = entreprises;
 	}
 
 	public String getNomBase() {
@@ -28,12 +30,12 @@ public class Base {
 		this.coutBase = coutBase;
 	}
 
-	public ArrayList<String> getNomEntreprises() {
-		return nomEntreprises;
+	public ArrayList<String> getEntreprises() {
+		return entreprises;
 	}
 
-	public void setNomEntreprises(ArrayList<String> nomEntreprises) {
-		this.nomEntreprises = nomEntreprises;
+	public void setEntreprises(ArrayList<String> entreprises) {
+		this.entreprises = entreprises;
 	}
 	
 }
