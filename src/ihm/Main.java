@@ -6,9 +6,9 @@ import readers.Lecteur;;
 public class Main {
 
 	public static void main(String[] args) {
-		String cheminBases = "./bin/docs/listesBases/ListeBases1.txt";
-		String cheminEntreprises = "./bin/docs/listesEntreprises/ListeEntreprises1.txt";
-		Lecteur lecteur = new Lecteur(cheminBases, cheminEntreprises);
+		String cheminListeBases = "./bin/docs/listesBases/ListeBases1.txt";
+		String cheminListeEntreprises = "./bin/docs/listesEntreprises/ListeEntreprises1.txt";
+		Lecteur lecteur = new Lecteur(cheminListeBases, cheminListeEntreprises);
 		Model model = new Model();
 		model.setBases(lecteur.lireBases());
 		model.setEntreprises(lecteur.lireEntreprises());

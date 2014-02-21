@@ -7,15 +7,17 @@ import projetOptimisationCombinatoire.Entreprise;
 
 public class Lecteur {
 	
-	private String cheminBases;
-	private String cheminEntreprises;
+	private String prefixeCheminBases = "./bin/docs/bases/";
+	
+	private String cheminListeBases;
+	private String cheminListeEntreprises;
 	
 	private LecteurBases lecteurBases;
 	private LecteurEntreprises lecteurEntreprises;
 
-	public Lecteur(String cheminBases, String cheminEntreprises) {
-		this.cheminBases = cheminBases;
-		this.cheminEntreprises = cheminEntreprises;
+	public Lecteur(String cheminListeBases, String cheminListeEntreprises) {
+		this.cheminListeBases = cheminListeBases;
+		this.cheminListeEntreprises = cheminListeEntreprises;
 		this.lecteurBases = new LecteurBases();
 		this.lecteurEntreprises = new LecteurEntreprises();
 	}
