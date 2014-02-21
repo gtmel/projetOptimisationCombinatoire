@@ -8,7 +8,7 @@ public class Base {
 	private int coutBase;
 	private ArrayList<String> nomEntreprises;
 	
-	Base() {
+	public Base() {
 		
 	}
 

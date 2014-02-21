@@ -13,19 +13,19 @@ public class Lecteur {
 	private LecteurBases lecteurBases;
 	private LecteurEntreprises lecteurEntreprises;
 
-	Lecteur(String cheminBases, String cheminEntreprises) {
+	public Lecteur(String cheminBases, String cheminEntreprises) {
 		this.cheminBases = cheminBases;
 		this.cheminEntreprises = cheminEntreprises;
 		this.lecteurBases = new LecteurBases();
 		this.lecteurEntreprises = new LecteurEntreprises();
 	}
 	
-	public ArrayList<Base> lireBases(String cheminBases) {
+	public ArrayList<Base> lireBases() {
 		
 		return null;
 	}
 	
-	public ArrayList<Entreprise> lireEntreprises(String cheminEntreprises) {
+	public ArrayList<Entreprise> lireEntreprises() {
 		
 		return null;
 	}

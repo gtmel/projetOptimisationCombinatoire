@@ -4,7 +4,7 @@ public class Entreprise {
 
 	private String nomEntreprise;
 	
-	Entreprise() {
+	public Entreprise() {
 		
 	}
 
