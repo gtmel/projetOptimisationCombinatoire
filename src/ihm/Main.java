@@ -1,4 +1,4 @@
-package projetOptimisationCombinatoire;
+package ihm;
 
 public class Main {
 
