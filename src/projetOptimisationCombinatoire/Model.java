@@ -34,7 +34,7 @@ public class Model {
 	
 	public void afficherBases() {
 		System.out.println("***** LISTE DES BASES *****");
-		System.out.println("\n\n");
+		System.out.println("\n");
 		for (Base base : bases) {
 			System.out.println("Nom de la base : " + base.getNomBase());
 			System.out.println("Coût de la base : " + base.getCoutBase());
@@ -47,7 +47,7 @@ public class Model {
 	
 	public void afficherEntreprises() {
 		System.out.println("***** LISTE DES ENTREPRISES *****");
-		System.out.println("\n\n");
+		System.out.println("\n");
 		for (Entreprise entreprise : entreprises) {
 			System.out.println(entreprise.getNomEntreprise());
 		}

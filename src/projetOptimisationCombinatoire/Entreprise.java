@@ -4,8 +4,8 @@ public class Entreprise {
 
 	private String nomEntreprise;
 	
-	public Entreprise() {
-		
+	public Entreprise(String nomEntreprise) {
+		this.nomEntreprise = nomEntreprise;
 	}
 
 	public String getNomEntreprise() {
