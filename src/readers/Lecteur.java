@@ -3,7 +3,6 @@ package readers;
 import java.util.ArrayList;
 
 import projetOptimisationCombinatoire.Base;
-import projetOptimisationCombinatoire.Entreprise;
 
 public class Lecteur {
 	
@@ -21,7 +20,7 @@ public class Lecteur {
 		return lecteurBases.lire();
 	}
 	
-	public ArrayList<Entreprise> lireEntreprises() {
+	public ArrayList<String> lireEntreprises() {
 		
 		return lecteurEntreprises.lire();
 	}

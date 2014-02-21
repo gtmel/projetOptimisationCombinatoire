@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Model {
 	
 	private ArrayList<Base> bases;
-	private ArrayList<Entreprise> entreprises;
+	private ArrayList<String> entreprises;
 	
 	public Model() {
 		
@@ -19,11 +19,11 @@ public class Model {
 		this.bases = bases;
 	}
 
-	public ArrayList<Entreprise> getEntreprises() {
+	public ArrayList<String> getEntreprises() {
 		return entreprises;
 	}
 
-	public void setEntreprises(ArrayList<Entreprise> entreprises) {
+	public void setEntreprises(ArrayList<String> entreprises) {
 		this.entreprises = entreprises;
 	}
 	
@@ -48,8 +48,8 @@ public class Model {
 	public void afficherEntreprises() {
 		System.out.println("***** LISTE DES ENTREPRISES *****");
 		System.out.println("\n");
-		for (Entreprise entreprise : entreprises) {
-			System.out.println(entreprise.getNomEntreprise());
+		for (String entreprise : entreprises) {
+			System.out.println(entreprise);
 		}
 		System.out.println("\n");
 	}

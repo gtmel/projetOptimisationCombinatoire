@@ -1,7 +1,7 @@
 package ihm;
 
 import projetOptimisationCombinatoire.Model;
-import readers.Lecteur;;
+import readers.Lecteur;
 
 public class Main {
 

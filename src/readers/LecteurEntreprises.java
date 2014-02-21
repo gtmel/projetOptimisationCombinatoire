@@ -6,8 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import projetOptimisationCombinatoire.Entreprise;
-
 public class LecteurEntreprises {
 
 	private String cheminListeEntreprises;
@@ -16,10 +14,10 @@ public class LecteurEntreprises {
 		this.cheminListeEntreprises = cheminListeEntreprises;
 	}
 	
-	public ArrayList<Entreprise> lire() {
+	public ArrayList<String> lire() {
 		int compteurLignes = 0;
 		int nombreEntreprises = 0;
-		ArrayList<Entreprise> entreprises = new ArrayList<Entreprise>();
+		ArrayList<String> entreprises = new ArrayList<String>();
 		
 		try{
 			InputStream ips = new FileInputStream(cheminListeEntreprises); 
@@ -31,8 +29,7 @@ public class LecteurEntreprises {
 					nombreEntreprises = Integer.valueOf(ligne);
 					compteurLignes++;
 				} else {
-					Entreprise entreprise = new Entreprise(ligne);
-					entreprises.add(entreprise);
+					entreprises.add(ligne);
 					compteurLignes++;
 				}
 			}
