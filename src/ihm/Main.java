@@ -1,5 +1,6 @@
 package ihm;
 
+import branchAndBound.AlgorithmeBranchAndBound;
 import model.Model;
 import readers.Lecteur;
 
@@ -13,7 +14,7 @@ public class Main {
 		model.setBases(lecteur.lireBases());
 		model.setEntreprises(lecteur.lireEntreprises());
 		model.afficher();
-
+		AlgorithmeBranchAndBound algoBB = new AlgorithmeBranchAndBound(model);
 	}
 
 }
