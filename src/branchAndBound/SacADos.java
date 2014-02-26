@@ -15,19 +15,19 @@ public class SacADos {
 	}
 
 	public void ajouterEntree(String base, ArrayList<String> entreprises) {
-		boolean estPresent = false;
+		/*boolean estPresent = false;
 		for (Entry<String, ArrayList<String>> entry : resultatsPartiels.entrySet()) {
 			if (entry.getValue().contains(entreprises.get(0))) {
 				estPresent = true;
 			}
 		}
-		if (!estPresent) {
+		if (!estPresent) {*/
 			resultatsPartiels.put(base, entreprises);	
-		}
+		//}
 	}
 	
 	public void ajouterEntreprise(String base, String entreprise) {
-		ArrayList<String> temporaire = resultatsPartiels.get(base);
+		ArrayList<String> temporaire = (ArrayList<String>) resultatsPartiels.get(base).clone();
 		boolean estPresent = false;
 		for (Entry<String, ArrayList<String>> entry : resultatsPartiels.entrySet()) {
 			if (entry.getValue().contains(entreprise)) {
