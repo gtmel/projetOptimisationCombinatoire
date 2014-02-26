@@ -1,6 +1,6 @@
 package ihm;
 
-import projetOptimisationCombinatoire.Model;
+import model.Model;
 import readers.Lecteur;
 
 public class Main {

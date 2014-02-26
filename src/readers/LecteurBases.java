@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import projetOptimisationCombinatoire.Base;
+import model.Base;
 
 public class LecteurBases {
 

@@ -2,7 +2,7 @@ package readers;
 
 import java.util.ArrayList;
 
-import projetOptimisationCombinatoire.Base;
+import model.Base;
 
 public class Lecteur {
 	

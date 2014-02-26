@@ -1,4 +1,4 @@
-package projetOptimisationCombinatoire;
+package model;
 
 import java.util.ArrayList;
 
