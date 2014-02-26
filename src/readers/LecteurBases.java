@@ -45,8 +45,6 @@ public class LecteurBases {
 		
 		// On vérifie que le nombre de bases
 		// correspond à celui du fichier.
-		System.out.println("BASES.SIZE = " + bases.size());
-		System.out.println("NOMBREBASES = " + nombreBases);
 		if (bases.size() != nombreBases) {
 			System.err.println("LE NOMBRE DE BASES NE CORRESPOND PAS !!!");
 		}
