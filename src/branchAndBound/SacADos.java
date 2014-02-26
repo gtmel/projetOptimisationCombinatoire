@@ -59,6 +59,7 @@ public class SacADos {
 	public void afficher() {
 		System.out.println(resultatsPartiels.toString());
 		System.out.println(coutOptimal);
+		System.out.println("\n");
 	}
 	
 }

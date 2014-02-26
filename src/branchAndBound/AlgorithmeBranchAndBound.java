@@ -26,11 +26,13 @@ public class AlgorithmeBranchAndBound {
 			// Pour chaque base contenant l'entreprise 
 			for (Base base : model.getBases()) {
 
-				System.out.println("INCREMENT -> " + increment);
-				System.out.println("ENTREPRISE -> " + nomEntreprise);
-				System.out.println("BASE -> " + base.getNomBase());
-
 				if (base.getEntreprises().contains(nomEntreprise)) {
+					
+					System.out.println("********** INCREMENT : " + increment + " **********");
+					System.out.println("---------- ENTREPRISE : " + nomEntreprise + " ----------");
+					System.out.println("\n");
+					System.out.println("BASE -> " + base.getNomBase());
+					
 					// et qui n'est pas dans la liste partielle
 					if (!sacADos.getResultatsPartiels().containsKey(base.getNomBase())) {
 						System.out.println("JE PASSE ICI");
@@ -53,7 +55,6 @@ public class AlgorithmeBranchAndBound {
 						rechercheOptimale(nouveauSac, increment + 1);
 					}
 				}
-				System.out.println("\n\n");
 			}
 		}
 
