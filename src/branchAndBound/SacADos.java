@@ -46,10 +46,10 @@ public class SacADos {
 		}
 	}
 	
-	public boolean testResultatsPartiels(int tailleListeEntrepriseInitial){
+	public boolean testResultatsPartiels(int tailleListeEntrepriseInitial) {
 		boolean estComplete = false;
 		
-		if (tailleListeEntrepriseInitial == tailleResultatsPartiels){
+		if (tailleListeEntrepriseInitial == tailleResultatsPartiels) {
 			estComplete = true;
 		}
 		return estComplete;
@@ -61,8 +61,17 @@ public class SacADos {
 
 	public void setResultatsPartiels(HashMap<String, ArrayList<String>> resultatsPartiels) {
 		this.resultatsPartiels = resultatsPartiels;
+		modifierCoutOptimal();
 	}
 
+	private void modifierCoutOptimal() {
+		for (Entry<String, ArrayList<String>> entry : resultatsPartiels.entrySet()) {
+			for (String entreprise : entry.getValue()) {
+				tailleResultatsPartiels++;
+			}
+		}
+	}
+	
 	public int getCoutOptimal() {
 		return coutOptimal;
 	}
@@ -74,7 +83,6 @@ public class SacADos {
 	public void afficher() {
 		System.out.println(resultatsPartiels.toString());
 		System.out.println(coutOptimal);
-		System.out.println("\n");
 	}
 	
 }

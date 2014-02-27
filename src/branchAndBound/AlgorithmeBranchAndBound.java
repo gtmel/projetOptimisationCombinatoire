@@ -28,9 +28,9 @@ public class AlgorithmeBranchAndBound {
 
 				if (base.getEntreprises().contains(nomEntreprise)) {
 					
+					System.out.print("\n");
 					System.out.println("********** INCREMENT : " + increment + " **********");
 					System.out.println("---------- ENTREPRISE : " + nomEntreprise + " ----------");
-					System.out.println("\n");
 					System.out.println("BASE -> " + base.getNomBase());
 					
 					// et qui n'est pas dans la liste partielle
@@ -43,8 +43,12 @@ public class AlgorithmeBranchAndBound {
 						nouveauSac.ajouterEntree(base.getNomBase(), nouvelleListeEntreprises);
 						nouveauSac.setCoutOptimal(sacADos.getCoutOptimal() + base.getCoutBase());
 						nouveauSac.afficher();
-						if(sacADos.getCoutOptimal() <= coutOptimal && !sacADos.testResultatsPartiels(model.getEntreprises().size())){
-							rechercheOptimale(nouveauSac, increment + 1, sacADos.getCoutOptimal());
+						if(!nouveauSac.testResultatsPartiels(model.getEntreprises().size())) {
+							if (nouveauSac.getCoutOptimal() <= coutOptimal || coutOptimal == 0) {
+								rechercheOptimale(nouveauSac, increment + 1, nouveauSac.getCoutOptimal());	
+							} else {
+								System.out.println(" ---> BRANCHE");
+							}
 						}
 
 					} else {
@@ -54,8 +58,12 @@ public class AlgorithmeBranchAndBound {
 						nouveauSac.ajouterEntreprise(base.getNomBase(), nomEntreprise);
 						nouveauSac.setCoutOptimal(sacADos.getCoutOptimal());
 						nouveauSac.afficher();
-						if(sacADos.getCoutOptimal() <= coutOptimal && !sacADos.testResultatsPartiels(model.getEntreprises().size())){
-							rechercheOptimale(nouveauSac, increment + 1, sacADos.getCoutOptimal());
+						if(!nouveauSac.testResultatsPartiels(model.getEntreprises().size())) {
+							if (nouveauSac.getCoutOptimal() <= coutOptimal || coutOptimal == 0) {
+								rechercheOptimale(nouveauSac, increment + 1, nouveauSac.getCoutOptimal());	
+							} else {
+								System.out.println(" ---> BRANCHE");
+							}
 						}
 					}
 				}
