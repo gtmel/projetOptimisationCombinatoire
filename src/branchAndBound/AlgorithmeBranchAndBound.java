@@ -14,10 +14,10 @@ public class AlgorithmeBranchAndBound {
 	public AlgorithmeBranchAndBound(Model model) {
 		this.model = model;
 		sacADos = new SacADos();
-		SacADos sacResultat = rechercheOptimale(sacADos, 0);
+		SacADos sacResultat = rechercheOptimale(sacADos, 0, 0);
 	}
 
-	public SacADos rechercheOptimale(SacADos sacADos, int increment) {
+	public SacADos rechercheOptimale(SacADos sacADos, int increment, int coutOptimal) {
 		
 		if (increment < model.getEntreprises().size()) {
 			
@@ -43,7 +43,9 @@ public class AlgorithmeBranchAndBound {
 						nouveauSac.ajouterEntree(base.getNomBase(), nouvelleListeEntreprises);
 						nouveauSac.setCoutOptimal(sacADos.getCoutOptimal() + base.getCoutBase());
 						nouveauSac.afficher();
-						rechercheOptimale(nouveauSac, increment + 1);
+						if(sacADos.getCoutOptimal() <= coutOptimal && !sacADos.testResultatsPartiels(model.getEntreprises().size())){
+							rechercheOptimale(nouveauSac, increment + 1, sacADos.getCoutOptimal());
+						}
 
 					} else {
 						System.out.println("OU JE PASSE LA");
@@ -52,7 +54,9 @@ public class AlgorithmeBranchAndBound {
 						nouveauSac.ajouterEntreprise(base.getNomBase(), nomEntreprise);
 						nouveauSac.setCoutOptimal(sacADos.getCoutOptimal());
 						nouveauSac.afficher();
-						rechercheOptimale(nouveauSac, increment + 1);
+						if(sacADos.getCoutOptimal() <= coutOptimal && !sacADos.testResultatsPartiels(model.getEntreprises().size())){
+							rechercheOptimale(nouveauSac, increment + 1, sacADos.getCoutOptimal());
+						}
 					}
 				}
 			}
