@@ -8,6 +8,8 @@ import model.Model;
 
 public class AlgorithmeBranchAndBound {
 
+	private static int majorant = -1;
+	
 	private Model model;
 	private SacADos sacADos;
 
@@ -17,7 +19,7 @@ public class AlgorithmeBranchAndBound {
 		SacADos sacResultat = rechercheOptimale(sacADos, 0, 0);
 	}
 
-	public SacADos rechercheOptimale(SacADos sacADos, int increment, int coutOptimal) {
+	public SacADos rechercheOptimale(SacADos sacADos, int increment, int cout) {
 		
 		if (increment < model.getEntreprises().size()) {
 			
@@ -44,10 +46,15 @@ public class AlgorithmeBranchAndBound {
 						nouveauSac.setCoutOptimal(sacADos.getCoutOptimal() + base.getCoutBase());
 						nouveauSac.afficher();
 						if(!nouveauSac.testResultatsPartiels(model.getEntreprises().size())) {
-							if (nouveauSac.getCoutOptimal() <= coutOptimal || coutOptimal == 0) {
+							if (nouveauSac.getCoutOptimal() <= majorant || majorant == -1) {
 								rechercheOptimale(nouveauSac, increment + 1, nouveauSac.getCoutOptimal());	
 							} else {
 								System.out.println(" ---> BRANCHE");
+							}
+						} else {
+							if (nouveauSac.getCoutOptimal() < majorant || majorant == -1) {
+								majorant = nouveauSac.getCoutOptimal();
+								System.out.println("---> NOUVEAU MAJORANT : " + majorant);	
 							}
 						}
 
@@ -59,10 +66,15 @@ public class AlgorithmeBranchAndBound {
 						nouveauSac.setCoutOptimal(sacADos.getCoutOptimal());
 						nouveauSac.afficher();
 						if(!nouveauSac.testResultatsPartiels(model.getEntreprises().size())) {
-							if (nouveauSac.getCoutOptimal() <= coutOptimal || coutOptimal == 0) {
+							if (nouveauSac.getCoutOptimal() <= majorant || majorant == -1) {
 								rechercheOptimale(nouveauSac, increment + 1, nouveauSac.getCoutOptimal());	
 							} else {
 								System.out.println(" ---> BRANCHE");
+							}
+						} else {
+							if (nouveauSac.getCoutOptimal() < majorant || majorant == -1) {
+								majorant = nouveauSac.getCoutOptimal();
+								System.out.println("---> NOUVEAU MAJORANT : " + majorant);	
 							}
 						}
 					}
