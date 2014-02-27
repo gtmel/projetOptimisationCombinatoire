@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import model.Model;
-
 public class SacADos {
 	
 	private HashMap<String, ArrayList<String>> resultatsPartiels;
@@ -66,7 +64,7 @@ public class SacADos {
 
 	private void modifierCoutOptimal() {
 		for (Entry<String, ArrayList<String>> entry : resultatsPartiels.entrySet()) {
-			for (String entreprise : entry.getValue()) {
+			for (int i = 0; i < entry.getValue().size(); i++) {
 				tailleResultatsPartiels++;
 			}
 		}
@@ -80,9 +78,24 @@ public class SacADos {
 		this.coutOptimal = coutOptimal;
 	}
 
+	public int getTailleResultatsPartiels() {
+		return tailleResultatsPartiels;
+	}
+
+	public void setTailleResultatsPartiels(int tailleResultatsPartiels) {
+		this.tailleResultatsPartiels = tailleResultatsPartiels;
+	}
+
 	public void afficher() {
 		System.out.println(resultatsPartiels.toString());
 		System.out.println(coutOptimal);
+	}
+	
+	public String toString() {
+		String affichage = "";
+		affichage += resultatsPartiels.toString();
+		affichage += coutOptimal;
+		return affichage;
 	}
 	
 }

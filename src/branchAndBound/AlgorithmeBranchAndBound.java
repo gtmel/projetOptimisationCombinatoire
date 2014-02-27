@@ -8,18 +8,37 @@ import model.Model;
 
 public class AlgorithmeBranchAndBound {
 
-	private static int majorant = -1;
-	
 	private Model model;
 	private SacADos sacADos;
+	private int majorant;
+	
+	private SacADos resultat;
+	private int compteurMajorants;
+	private int compteurBranches;
+	
+	private String logs;
 
 	public AlgorithmeBranchAndBound(Model model) {
 		this.model = model;
-		sacADos = new SacADos();
-		SacADos sacResultat = rechercheOptimale(sacADos, 0, 0);
+		this.sacADos = new SacADos();
+		this.majorant = -1;
+		
+		this.resultat = null;
+		this.compteurMajorants = 0;
+		this.compteurBranches = 0;
+		
+		this.logs = "";
+		
+		rechercheOptimale(sacADos, 0);
+		
+		System.out.println("FIN DE L'EXECUTION");
+		System.out.println("TEMPS : ");
+		resultat.afficher();
+		System.out.println("NOMBRE DE MAJORANTS : " + compteurMajorants);
+		System.out.println("NOMBRE DE BRANCHES : " + compteurBranches);
 	}
 
-	public SacADos rechercheOptimale(SacADos sacADos, int increment, int cout) {
+	public void rechercheOptimale(SacADos sacADos, int increment) {
 		
 		if (increment < model.getEntreprises().size()) {
 			
@@ -30,59 +49,45 @@ public class AlgorithmeBranchAndBound {
 
 				if (base.getEntreprises().contains(nomEntreprise)) {
 					
-					System.out.print("\n");
-					System.out.println("********** INCREMENT : " + increment + " **********");
-					System.out.println("---------- ENTREPRISE : " + nomEntreprise + " ----------");
-					System.out.println("BASE -> " + base.getNomBase());
+					logs += "\n";
+					logs += "********** INCREMENT : " + increment + " **********";
+					logs += "---------- ENTREPRISE : " + nomEntreprise + " ----------";
+					logs += "BASE -> " + base.getNomBase();
+					
+					SacADos nouveauSac = new SacADos();
+					nouveauSac.setResultatsPartiels((HashMap<String, ArrayList<String>>)sacADos.getResultatsPartiels().clone());
 					
 					// et qui n'est pas dans la liste partielle
 					if (!sacADos.getResultatsPartiels().containsKey(base.getNomBase())) {
-						System.out.println("JE PASSE ICI");
-						SacADos nouveauSac = new SacADos();
-						nouveauSac.setResultatsPartiels((HashMap<String, ArrayList<String>>)sacADos.getResultatsPartiels().clone());
 						ArrayList<String> nouvelleListeEntreprises = new ArrayList<String>();
 						nouvelleListeEntreprises.add(nomEntreprise);
 						nouveauSac.ajouterEntree(base.getNomBase(), nouvelleListeEntreprises);
 						nouveauSac.setCoutOptimal(sacADos.getCoutOptimal() + base.getCoutBase());
-						nouveauSac.afficher();
-						if(!nouveauSac.testResultatsPartiels(model.getEntreprises().size())) {
-							if (nouveauSac.getCoutOptimal() <= majorant || majorant == -1) {
-								rechercheOptimale(nouveauSac, increment + 1, nouveauSac.getCoutOptimal());	
-							} else {
-								System.out.println(" ---> BRANCHE");
-							}
-						} else {
-							if (nouveauSac.getCoutOptimal() < majorant || majorant == -1) {
-								majorant = nouveauSac.getCoutOptimal();
-								System.out.println("---> NOUVEAU MAJORANT : " + majorant);	
-							}
-						}
-
 					} else {
-						System.out.println("OU JE PASSE LA");
-						SacADos nouveauSac = new SacADos();
-						nouveauSac.setResultatsPartiels((HashMap<String, ArrayList<String>>)sacADos.getResultatsPartiels().clone());
 						nouveauSac.ajouterEntreprise(base.getNomBase(), nomEntreprise);
 						nouveauSac.setCoutOptimal(sacADos.getCoutOptimal());
-						nouveauSac.afficher();
-						if(!nouveauSac.testResultatsPartiels(model.getEntreprises().size())) {
-							if (nouveauSac.getCoutOptimal() <= majorant || majorant == -1) {
-								rechercheOptimale(nouveauSac, increment + 1, nouveauSac.getCoutOptimal());	
-							} else {
-								System.out.println(" ---> BRANCHE");
-							}
+					}
+					
+					logs += nouveauSac.toString();
+					
+					if(!nouveauSac.testResultatsPartiels(model.getEntreprises().size())) {
+						if (nouveauSac.getCoutOptimal() <= majorant || majorant == -1) {
+							rechercheOptimale(nouveauSac, increment + 1);	
 						} else {
-							if (nouveauSac.getCoutOptimal() < majorant || majorant == -1) {
-								majorant = nouveauSac.getCoutOptimal();
-								System.out.println("---> NOUVEAU MAJORANT : " + majorant);	
-							}
+							compteurBranches++;
+							logs += "---> BRANCHE";
+						}
+					} else {
+						if (nouveauSac.getCoutOptimal() < majorant || majorant == -1) {
+							majorant = nouveauSac.getCoutOptimal();
+							compteurMajorants++;
+							resultat = nouveauSac;
+							logs += "---> NOUVEAU MAJORANT : " + majorant;
 						}
 					}
 				}
 			}
 		}
-
-		return null;
 	}
 
 	public Model getModel() {
@@ -101,4 +106,20 @@ public class AlgorithmeBranchAndBound {
 		this.sacADos = sacADos;
 	}
 
+	public SacADos getResultat() {
+		return resultat;
+	}
+
+	public void setResultat(SacADos resultat) {
+		this.resultat = resultat;
+	}
+
+	public int getMajorant() {
+		return majorant;
+	}
+
+	public void setMajorant(int majorant) {
+		this.majorant = majorant;
+	}
+	
 }
