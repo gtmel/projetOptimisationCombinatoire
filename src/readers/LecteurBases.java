@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.Base;
 
@@ -13,15 +14,21 @@ public class LecteurBases {
 	private String cheminListeBases;
 	private String prefixCheminBases;
 	
+	private ArrayList<Base> bases;
+	private HashMap<String, ArrayList<Base>> entreprisesBases;
+	
 	public LecteurBases(String cheminListeBases, String prefixCheminBases) {
 		this.cheminListeBases = cheminListeBases;
 		this.prefixCheminBases = prefixCheminBases;
+		
+		this.bases = new ArrayList<Base>();
+		this.entreprisesBases = new HashMap<String, ArrayList<Base>>();
 	}
 	
-	public ArrayList<Base> lire() {
+	public void lire() {
 		int compteurLignes = 0;
 		int nombreBases = 0;
-		ArrayList<Base> bases = new ArrayList<Base>();
+		
 		
 		try{
 			InputStream ips = new FileInputStream(cheminListeBases); 
@@ -49,12 +56,13 @@ public class LecteurBases {
 			System.err.println("LE NOMBRE DE BASES NE CORRESPOND PAS !!!");
 		}
 		
-		return bases;
 	}
 	
 	private Base lireBase(String cheminFichierBase) {
 		int compteurLignes = 0;
 		int nombreEntreprises = 0;
+		
+		Base base = new Base();
 		
 		String nomBase = cheminFichierBase;
 		int coutBase = 0;
@@ -72,6 +80,14 @@ public class LecteurBases {
 					nombreEntreprises = Integer.valueOf(ligne);
 					compteurLignes++;
 				} else {
+					if (entreprisesBases.containsKey(ligne)) {
+						ArrayList<Base> listeBases = entreprisesBases.get(ligne);
+						listeBases.add(base);
+					} else {
+						ArrayList<Base> listeBases = new ArrayList<Base>();
+						listeBases.add(base);
+						entreprisesBases.put(ligne, listeBases);
+					}
 					entreprises.add(ligne);
 					compteurLignes++;
 				}
@@ -82,7 +98,9 @@ public class LecteurBases {
 			System.out.println(e.toString());
 		}
 		
-		Base base = new Base(nomBase, coutBase, entreprises);
+		base.setNomBase(nomBase);
+		base.setCoutBase(coutBase);
+		base.setEntreprises(entreprises);
 		
 		// On vérifie que le nombre d'entreprises
 		// correspond à celui du fichier.
@@ -91,6 +109,23 @@ public class LecteurBases {
 		}
 		
 		return base;
+	}
+
+	public ArrayList<Base> getBases() {
+		return bases;
+	}
+
+	public void setBases(ArrayList<Base> bases) {
+		this.bases = bases;
+	}
+
+	public HashMap<String, ArrayList<Base>> getEntreprisesBases() {
+		return entreprisesBases;
+	}
+
+	public void setEntreprisesBases(
+			HashMap<String, ArrayList<Base>> entreprisesBases) {
+		this.entreprisesBases = entreprisesBases;
 	}
 	
 }

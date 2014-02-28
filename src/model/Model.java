@@ -1,11 +1,14 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class Model {
 	
 	private ArrayList<Base> bases;
 	private ArrayList<String> entreprises;
+	private HashMap<String, ArrayList<Base>> entreprisesBases;
 	
 	public Model() {
 		
@@ -26,10 +29,20 @@ public class Model {
 	public void setEntreprises(ArrayList<String> entreprises) {
 		this.entreprises = entreprises;
 	}
-	
+
+	public HashMap<String, ArrayList<Base>> getEntreprisesBases() {
+		return entreprisesBases;
+	}
+
+	public void setEntreprisesBases(
+			HashMap<String, ArrayList<Base>> entreprisesBases) {
+		this.entreprisesBases = entreprisesBases;
+	}
+
 	public void afficher() {
 		afficherBases();
 		afficherEntreprises();
+		afficherEntreprisesBases();
 	}
 	
 	public void afficherBases() {
@@ -47,9 +60,24 @@ public class Model {
 	
 	public void afficherEntreprises() {
 		System.out.println("***** LISTE DES ENTREPRISES *****");
+		System.out.println(entreprises.size());
 		System.out.println("\n");
 		for (String entreprise : entreprises) {
 			System.out.println(entreprise);
+		}
+		System.out.println("\n");
+	}
+	
+	public void afficherEntreprisesBases() {
+		System.out.println("***** CORRESPONDANCES ENTREPRISES/BASES *****");
+		System.out.println(entreprisesBases.size());
+		System.out.println("\n");
+		for (Entry<String, ArrayList<Base>> entry : entreprisesBases.entrySet()) {
+			System.out.println("ENTREPRISE : " + entry.getKey());
+			for (Base base : entry.getValue()) {
+				System.out.print(base.getNomBase() + ", ");
+			}
+			System.out.print("\n");
 		}
 		System.out.println("\n");
 	}

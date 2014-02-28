@@ -36,6 +36,8 @@ public class AlgorithmeBranchAndBound {
 		resultat.afficher();
 		System.out.println("NOMBRE DE MAJORANTS : " + compteurMajorants);
 		System.out.println("NOMBRE DE BRANCHES : " + compteurBranches);
+		
+		System.out.println(logs);
 	}
 
 	public void rechercheOptimale(SacADos sacADos, int increment) {
@@ -45,45 +47,42 @@ public class AlgorithmeBranchAndBound {
 			String nomEntreprise = model.getEntreprises().get(increment);
 
 			// Pour chaque base contenant l'entreprise 
-			for (Base base : model.getBases()) {
-
-				if (base.getEntreprises().contains(nomEntreprise)) {
+			for (Base base : model.getEntreprisesBases().get(nomEntreprise)) {
 					
-					logs += "\n";
-					logs += "********** INCREMENT : " + increment + " **********";
-					logs += "---------- ENTREPRISE : " + nomEntreprise + " ----------";
-					logs += "BASE -> " + base.getNomBase();
-					
-					SacADos nouveauSac = new SacADos();
-					nouveauSac.setResultatsPartiels((HashMap<String, ArrayList<String>>)sacADos.getResultatsPartiels().clone());
-					
-					// et qui n'est pas dans la liste partielle
-					if (!sacADos.getResultatsPartiels().containsKey(base.getNomBase())) {
-						ArrayList<String> nouvelleListeEntreprises = new ArrayList<String>();
-						nouvelleListeEntreprises.add(nomEntreprise);
-						nouveauSac.ajouterEntree(base.getNomBase(), nouvelleListeEntreprises);
-						nouveauSac.setCoutOptimal(sacADos.getCoutOptimal() + base.getCoutBase());
+				logs += "\n";
+				logs += "********** INCREMENT : " + increment + " **********";
+				logs += "---------- ENTREPRISE : " + nomEntreprise + " ----------";
+				logs += "BASE -> " + base.getNomBase();
+				
+				SacADos nouveauSac = new SacADos();
+				nouveauSac.setResultatsPartiels((HashMap<String, ArrayList<String>>)sacADos.getResultatsPartiels().clone());
+				
+				// et qui n'est pas dans la liste partielle
+				if (!sacADos.getResultatsPartiels().containsKey(base.getNomBase())) {
+					ArrayList<String> nouvelleListeEntreprises = new ArrayList<String>();
+					nouvelleListeEntreprises.add(nomEntreprise);
+					nouveauSac.ajouterEntree(base.getNomBase(), nouvelleListeEntreprises);
+					nouveauSac.setCoutOptimal(sacADos.getCoutOptimal() + base.getCoutBase());
+				} else {
+					nouveauSac.ajouterEntreprise(base.getNomBase(), nomEntreprise);
+					nouveauSac.setCoutOptimal(sacADos.getCoutOptimal());
+				}
+				
+				logs += nouveauSac.toString();
+				
+				if(!nouveauSac.testResultatsPartiels(model.getEntreprises().size())) {
+					if (nouveauSac.getCoutOptimal() <= majorant || majorant == -1) {
+						rechercheOptimale(nouveauSac, increment + 1);	
 					} else {
-						nouveauSac.ajouterEntreprise(base.getNomBase(), nomEntreprise);
-						nouveauSac.setCoutOptimal(sacADos.getCoutOptimal());
+						compteurBranches++;
+						logs += "---> BRANCHE";
 					}
-					
-					logs += nouveauSac.toString();
-					
-					if(!nouveauSac.testResultatsPartiels(model.getEntreprises().size())) {
-						if (nouveauSac.getCoutOptimal() <= majorant || majorant == -1) {
-							rechercheOptimale(nouveauSac, increment + 1);	
-						} else {
-							compteurBranches++;
-							logs += "---> BRANCHE";
-						}
-					} else {
-						if (nouveauSac.getCoutOptimal() < majorant || majorant == -1) {
-							majorant = nouveauSac.getCoutOptimal();
-							compteurMajorants++;
-							resultat = nouveauSac;
-							logs += "---> NOUVEAU MAJORANT : " + majorant;
-						}
+				} else {
+					if (nouveauSac.getCoutOptimal() < majorant || majorant == -1) {
+						majorant = nouveauSac.getCoutOptimal();
+						compteurMajorants++;
+						resultat = nouveauSac;
+						logs += "---> NOUVEAU MAJORANT : " + majorant;
 					}
 				}
 			}

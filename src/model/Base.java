@@ -8,6 +8,10 @@ public class Base {
 	private int coutBase;
 	private ArrayList<String> entreprises;
 	
+	public Base() {
+		
+	}
+	
 	public Base(String nomBase, int coutBase, ArrayList<String> entreprises) {
 		this.nomBase = nomBase;
 		this.coutBase = coutBase;
