@@ -12,8 +12,10 @@ public class Main {
 		long debut = System.currentTimeMillis();
 
 		// Choix des fichiers
-		String cheminListeBases = "./bin/docs/listesBases/ListeBases1.txt";
+		String cheminListeBases = "./bin/docs/listesBases/ListeBases2.txt";
 		String cheminListeEntreprises = "./bin/docs/listesEntreprises/ListeEntreprises1.txt";
+		//String cheminListeBases = "./bin/docs/listesBases/lb1.txt";
+		//String cheminListeEntreprises = "./bin/docs/listesEntreprises/le1.txt";
 		
 		// Lecture des fichiers
 		Lecteur lecteur = new Lecteur(cheminListeBases, cheminListeEntreprises);

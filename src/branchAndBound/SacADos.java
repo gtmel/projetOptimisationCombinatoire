@@ -87,14 +87,14 @@ public class SacADos {
 	}
 
 	public void afficher() {
+		System.out.println( coutOptimal);
 		System.out.println(resultatsPartiels.toString());
-		System.out.println(coutOptimal);
 	}
 	
 	public String toString() {
 		String affichage = "";
+		affichage += "Coût = " + coutOptimal;
 		affichage += resultatsPartiels.toString();
-		affichage += coutOptimal;
 		return affichage;
 	}
 	
