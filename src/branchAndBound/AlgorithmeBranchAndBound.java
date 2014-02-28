@@ -37,7 +37,7 @@ public class AlgorithmeBranchAndBound {
 		System.out.println("NOMBRE DE MAJORANTS : " + compteurMajorants);
 		System.out.println("NOMBRE DE BRANCHES : " + compteurBranches);
 		
-		System.out.println(logs);
+		//System.out.println(logs);
 	}
 
 	public void rechercheOptimale(SacADos sacADos, int increment) {
