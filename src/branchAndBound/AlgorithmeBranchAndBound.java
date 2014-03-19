@@ -42,6 +42,7 @@ public class AlgorithmeBranchAndBound {
 		
 		if (increment < model.getEntreprises().size()) {
 			
+			// Nom de l'entreprise recherchée
 			String nomEntreprise = model.getEntreprises().get(increment);
 
 			// Pour chaque base contenant l'entreprise 

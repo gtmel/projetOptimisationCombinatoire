@@ -1,5 +1,6 @@
 package ihm;
 
+import glouton.AlgorithmeGlouton;
 import branchAndBound.AlgorithmeBranchAndBound;
 import model.Model;
 import readers.Lecteur;
@@ -12,7 +13,7 @@ public class Main {
 		long debut = System.currentTimeMillis();
 
 		// Choix des fichiers
-		String cheminListeBases = "./bin/docs/listesBases/ListeBases2.txt";
+		String cheminListeBases = "./bin/docs/listesBases/ListeBases1.txt";
 		String cheminListeEntreprises = "./bin/docs/listesEntreprises/ListeEntreprises1.txt";
 		//String cheminListeBases = "./bin/docs/listesBases/lb1.txt";
 		//String cheminListeEntreprises = "./bin/docs/listesEntreprises/le1.txt";
@@ -30,7 +31,9 @@ public class Main {
 		System.out.println("TEMPS DE CHARGEMENT : " + (inter - debut) + " ms");
 		
 		//model.afficher();
-		AlgorithmeBranchAndBound algoBB = new AlgorithmeBranchAndBound(model);
+		//AlgorithmeBranchAndBound algoBB = new AlgorithmeBranchAndBound(model);
+		AlgorithmeGlouton algoGlouton = new AlgorithmeGlouton(model);
+		algoGlouton.afficherResultat();
 		
 		// Temps final = temps d'éxecution de l'algorithme
 		long fin = System.currentTimeMillis();
