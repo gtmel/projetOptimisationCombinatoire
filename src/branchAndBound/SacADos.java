@@ -30,6 +30,7 @@ public class SacADos {
 	}
 	
 	public void ajouterEntreprise(String base, String entreprise) {
+		@SuppressWarnings("unchecked")
 		ArrayList<String> temporaire = (ArrayList<String>) resultatsPartiels.get(base).clone();
 		boolean estPresent = false;
 		for (Entry<String, ArrayList<String>> entry : resultatsPartiels.entrySet()) {

@@ -2,6 +2,7 @@ package branchAndBound;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import model.Base;
 import model.Model;
@@ -31,13 +32,10 @@ public class AlgorithmeBranchAndBound {
 		
 		rechercheOptimale(sacADos, 0);
 		
-		resultat.afficher();
-		System.out.println("NOMBRE DE MAJORANTS : " + compteurMajorants);
-		System.out.println("NOMBRE DE BRANCHES : " + compteurBranches);
-		
 		//System.out.println(logs);
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	public void rechercheOptimale(SacADos sacADos, int increment) {
 		
 		if (increment < model.getEntreprises().size()) {
@@ -118,6 +116,28 @@ public class AlgorithmeBranchAndBound {
 
 	public void setMajorant(int majorant) {
 		this.majorant = majorant;
+	}
+	
+	public String afficherResultat() {
+		String affichageResultat = "";
+		affichageResultat += "Meilleur coût : " + resultat.getCoutOptimal() + "\n\n";
+		
+		affichageResultat += "Nombre de majorants : " + compteurMajorants + "\n";
+		affichageResultat += "Nombre de branches coupées : " + compteurBranches + "\n\n";
+		
+		
+		for (Entry<String, ArrayList<String>> entry : resultat.getResultatsPartiels().entrySet()) {
+			affichageResultat += "\tBase" + entry.getKey() + "\n";
+			for (String entreprise : entry.getValue()) {
+				affichageResultat += "\t\t" + entreprise + "\n";
+			}
+			affichageResultat += "\n";
+		}
+		return affichageResultat;
+	}
+	
+	public String getLogs() {
+		return logs;
 	}
 	
 }

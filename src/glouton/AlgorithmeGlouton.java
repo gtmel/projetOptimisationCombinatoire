@@ -69,24 +69,17 @@ public class AlgorithmeGlouton {
 		
 	}
 
-	public HashMap<String, ArrayList<String>> getResultatListe() {
-		return resultatListe;
-	}
-
-	public void setResultatListe(HashMap<String, ArrayList<String>> resultatListe) {
-		this.resultatListe = resultatListe;
-	}
-
-	public int getResultatCout() {
-		return resultatCout;
-	}
-
-	public void setResultatCout(int resultatCout) {
-		this.resultatCout = resultatCout;
-	}
-	public void afficherResultat() {
-		System.out.println(resultatListe.toString());
-		System.out.println(resultatCout);
+	public String afficherResultat() {
+		String affichageResultat = "";
+		affichageResultat += "Meilleur coût : " + resultatCout + "\n\n";
+		for (Entry<String, ArrayList<String>> entry : resultatListe.entrySet()) {
+			affichageResultat += "\tBase" + entry.getKey() + "\n";
+			for (String entreprise : entry.getValue()) {
+				affichageResultat += "\t\t" + entreprise + "\n";
+			}
+			affichageResultat += "\n";
+		}
+		return affichageResultat;
 	}
 
 }

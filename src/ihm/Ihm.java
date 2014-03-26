@@ -12,6 +12,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.BoxLayout;
 import javax.swing.Box;
@@ -22,7 +23,6 @@ import java.awt.Component;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Map.Entry;
 
 import javax.swing.JList;
 import javax.swing.JRadioButton;
@@ -79,16 +79,17 @@ public class Ihm {
 		
 		JPanel panelResultats = new JPanel();
 		frame.getContentPane().add(panelResultats, BorderLayout.CENTER);
-		panelResultats.setLayout(new BoxLayout(panelResultats, BoxLayout.X_AXIS));
-		
-		Box verticalBox = Box.createVerticalBox();
-		panelResultats.add(verticalBox);
+		panelResultats.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblResultats = new JLabel("Résultats");
-		verticalBox.add(lblResultats);
+		lblResultats.setHorizontalAlignment(SwingConstants.LEFT);
+		panelResultats.add(lblResultats, BorderLayout.NORTH);
 		
 		textAreaResultats = new JTextArea();
-		verticalBox.add(textAreaResultats);
+		JScrollPane scrollPane = new JScrollPane(textAreaResultats, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		panelResultats.add(scrollPane, BorderLayout.CENTER);
+		textAreaResultats.setEditable(false);
+		textAreaResultats.setEditable(false);
 		
 		JPanel panelOptions = new JPanel();
 		frame.getContentPane().add(panelOptions, BorderLayout.WEST);
@@ -155,6 +156,9 @@ public class Ihm {
 		btnLancement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+				// Nettoyage de l'écran des résultat 
+				textAreaResultats.setText("");
+				
 				// Initialisation du compteur temps;
 				long debut = System.currentTimeMillis();
 				
@@ -172,27 +176,22 @@ public class Ihm {
 				
 				// Temps intermédiaire = chargement des fichiers
 				long inter = System.currentTimeMillis();
-				textAreaResultats.append("TEMPS DE CHARGEMENT DES FICHIERS : " + (inter - debut) + " ms\n");
+				textAreaResultats.append("CHARGEMENT DES FICHIERS : " + (inter - debut) + " ms\n");
 				
 				if (rdbtnBranchBound.isSelected()) {
 					AlgorithmeBranchAndBound algoBB = new AlgorithmeBranchAndBound(model);
 					// Temps final = temps d'éxecution de l'algorithme
 					long fin = System.currentTimeMillis();
-					textAreaResultats.append("TEMPS D'EXECUTION DE L'ALGORITHME DE BRANCH & BOUND : " + (fin - inter) + " ms\n");
+					textAreaResultats.append("EXECUTION DE L'ALGORITHME DE BRANCH & BOUND : " + (fin - inter) + " ms\n\n");
+					textAreaResultats.append(algoBB.afficherResultat());
 				}
 				
 				if (rdbtnGlouton.isSelected()) {
 					AlgorithmeGlouton algoGlouton = new AlgorithmeGlouton(model);
 					// Temps final = temps d'éxecution de l'algorithme
 					long fin = System.currentTimeMillis();
-					textAreaResultats.append("TEMPS D'EXECUTION DE L'ALGORITHME GLOUTON : " + (fin - inter) + " ms\n\n");
-					textAreaResultats.append("Meilleur coût : " + algoGlouton.getResultatCout() + "\n\n");
-					for (Entry<String, ArrayList<String>> entry : algoGlouton.getResultatListe().entrySet()) {
-						textAreaResultats.append("\tBase" + entry.getKey() + "\n");
-						for (String entreprise : entry.getValue()) {
-							textAreaResultats.append("\t\t" + entreprise + "\n");
-						}
-					}
+					textAreaResultats.append("EXECUTION DE L'ALGORITHME GLOUTON : " + (fin - inter) + " ms\n\n");
+					textAreaResultats.append(algoGlouton.afficherResultat());
 				}
 				
 				
