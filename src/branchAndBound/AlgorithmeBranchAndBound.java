@@ -35,7 +35,6 @@ public class AlgorithmeBranchAndBound {
 		//System.out.println(logs);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void rechercheOptimale(SacADos sacADos, int increment) {
 		
 		if (increment < model.getEntreprises().size()) {
@@ -52,7 +51,14 @@ public class AlgorithmeBranchAndBound {
 				logs += "BASE -> " + base.getNomBase();
 				
 				SacADos nouveauSac = new SacADos();
-				nouveauSac.setResultatsPartiels((HashMap<String, ArrayList<String>>)sacADos.getResultatsPartiels().clone());
+				
+				HashMap<String, ArrayList<String>> tempor = new HashMap<String, ArrayList<String>>();
+				for (Entry<String, ArrayList<String>> entry : sacADos.getResultatsPartiels().entrySet()) {
+					tempor.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
+				}
+				nouveauSac.setResultatsPartiels(tempor);
+				
+//				nouveauSac.setResultatsPartiels(new HashMap<String, ArrayList<String>>(sacADos.getResultatsPartiels()));
 				
 				// et qui n'est pas dans la liste partielle
 				if (!sacADos.getResultatsPartiels().containsKey(base.getNomBase())) {
@@ -68,18 +74,18 @@ public class AlgorithmeBranchAndBound {
 				logs += nouveauSac.toString();
 				
 				if(!nouveauSac.testResultatsPartiels(model.getEntreprises().size())) {
-					if (nouveauSac.getCoutOptimal() <= majorant || majorant == -1) {
+					if (nouveauSac.getCoutOptimal() < majorant || majorant == -1) {
 						rechercheOptimale(nouveauSac, increment + 1);	
 					} else {
 						compteurBranches++;
-						logs += "---> BRANCHE";
+						logs += " ---> BRANCHE";
 					}
 				} else {
 					if (nouveauSac.getCoutOptimal() < majorant || majorant == -1) {
 						majorant = nouveauSac.getCoutOptimal();
 						compteurMajorants++;
 						resultat = nouveauSac;
-						logs += "---> NOUVEAU MAJORANT : " + majorant;
+						logs += " ---> NOUVEAU MAJORANT : " + majorant;
 					}
 				}
 			}
@@ -121,11 +127,8 @@ public class AlgorithmeBranchAndBound {
 	public String afficherResultat() {
 		String affichageResultat = "";
 		affichageResultat += "Meilleur coût : " + resultat.getCoutOptimal() + "\n\n";
-		
 		affichageResultat += "Nombre de majorants : " + compteurMajorants + "\n";
 		affichageResultat += "Nombre de branches coupées : " + compteurBranches + "\n\n";
-		
-		
 		for (Entry<String, ArrayList<String>> entry : resultat.getResultatsPartiels().entrySet()) {
 			affichageResultat += "\tBase" + entry.getKey() + "\n";
 			for (String entreprise : entry.getValue()) {
