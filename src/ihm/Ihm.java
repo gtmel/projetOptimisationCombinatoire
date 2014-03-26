@@ -11,7 +11,6 @@ import java.awt.BorderLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.BoxLayout;
@@ -78,12 +77,9 @@ public class Ihm {
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JPanel panelResultats = new JPanel();
+		panelResultats.setBorder(new TitledBorder(null, "R\u00E9sultats", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		frame.getContentPane().add(panelResultats, BorderLayout.CENTER);
 		panelResultats.setLayout(new BorderLayout(0, 0));
-		
-		JLabel lblResultats = new JLabel("Résultats");
-		lblResultats.setHorizontalAlignment(SwingConstants.LEFT);
-		panelResultats.add(lblResultats, BorderLayout.NORTH);
 		
 		textAreaResultats = new JTextArea();
 		JScrollPane scrollPane = new JScrollPane(textAreaResultats, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -142,18 +138,18 @@ public class Ihm {
 		listeBases = new JList<String>(remplirListeBases());
 		panelBases.add(listeBases, BorderLayout.CENTER);
 		
-		JPanel panelLancement = new JPanel();
-		frame.getContentPane().add(panelLancement, BorderLayout.SOUTH);
-		panelLancement.setLayout(new BoxLayout(panelLancement, BoxLayout.X_AXIS));
+		JPanel panelLancer = new JPanel();
+		frame.getContentPane().add(panelLancer, BorderLayout.SOUTH);
+		panelLancer.setLayout(new BoxLayout(panelLancer, BoxLayout.X_AXIS));
 		
 		Box horizontalBoxLancement = Box.createHorizontalBox();
-		panelLancement.add(horizontalBoxLancement);
+		panelLancer.add(horizontalBoxLancement);
 		
 		Component horizontalGlueLancement = Box.createHorizontalGlue();
 		horizontalBoxLancement.add(horizontalGlueLancement);
 		
-		JButton btnLancement = new JButton("Lancement");
-		btnLancement.addActionListener(new ActionListener() {
+		JButton btnLancer = new JButton("Lancer");
+		btnLancer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				// Nettoyage de l'écran des résultat 
@@ -198,8 +194,8 @@ public class Ihm {
 				
 			}
 		});
-		btnLancement.setHorizontalAlignment(SwingConstants.RIGHT);
-		horizontalBoxLancement.add(btnLancement);
+		btnLancer.setHorizontalAlignment(SwingConstants.RIGHT);
+		horizontalBoxLancement.add(btnLancer);
 	}
 	
 	private DefaultListModel<String> remplirListeBases() { 

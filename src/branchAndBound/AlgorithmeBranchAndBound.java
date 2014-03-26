@@ -1,7 +1,6 @@
 package branchAndBound;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map.Entry;
 
 import model.Base;
@@ -16,6 +15,7 @@ public class AlgorithmeBranchAndBound {
 	private SacADos resultat;
 	private int compteurMajorants;
 	private int compteurBranches;
+	private int compteurBranchesCoupees;
 	
 	private String logs;
 
@@ -27,6 +27,7 @@ public class AlgorithmeBranchAndBound {
 		this.resultat = null;
 		this.compteurMajorants = 0;
 		this.compteurBranches = 0;
+		this.compteurBranchesCoupees = 0;
 		
 		this.logs = "";
 		
@@ -50,37 +51,31 @@ public class AlgorithmeBranchAndBound {
 				logs += "---------- ENTREPRISE : " + nomEntreprise + " ----------";
 				logs += "BASE -> " + base.getNomBase();
 				
-				SacADos nouveauSac = new SacADos();
-				
-				HashMap<String, ArrayList<String>> tempor = new HashMap<String, ArrayList<String>>();
-				for (Entry<String, ArrayList<String>> entry : sacADos.getResultatsPartiels().entrySet()) {
-					tempor.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
-				}
-				nouveauSac.setResultatsPartiels(tempor);
-				
-//				nouveauSac.setResultatsPartiels(new HashMap<String, ArrayList<String>>(sacADos.getResultatsPartiels()));
+				SacADos nouveauSac = new SacADos(sacADos);
 				
 				// et qui n'est pas dans la liste partielle
-				if (!sacADos.getResultatsPartiels().containsKey(base.getNomBase())) {
+				if (!sacADos.rechercherBase(base)) {
 					ArrayList<String> nouvelleListeEntreprises = new ArrayList<String>();
 					nouvelleListeEntreprises.add(nomEntreprise);
 					nouveauSac.ajouterEntree(base.getNomBase(), nouvelleListeEntreprises);
-					nouveauSac.setCoutOptimal(sacADos.getCoutOptimal() + base.getCoutBase());
+					nouveauSac.incrementerCoutOptimal(base.getCoutBase());
 				} else {
 					nouveauSac.ajouterEntreprise(base.getNomBase(), nomEntreprise);
-					nouveauSac.setCoutOptimal(sacADos.getCoutOptimal());
+					nouveauSac.incrementerCoutOptimal(0);
 				}
 				
 				logs += nouveauSac.toString();
 				
 				if(!nouveauSac.testResultatsPartiels(model.getEntreprises().size())) {
 					if (nouveauSac.getCoutOptimal() < majorant || majorant == -1) {
-						rechercheOptimale(nouveauSac, increment + 1);	
-					} else {
+						rechercheOptimale(nouveauSac, increment + 1);
 						compteurBranches++;
+					} else {
+						compteurBranchesCoupees++;
 						logs += " ---> BRANCHE";
 					}
 				} else {
+					compteurBranches++;
 					if (nouveauSac.getCoutOptimal() < majorant || majorant == -1) {
 						majorant = nouveauSac.getCoutOptimal();
 						compteurMajorants++;
@@ -128,7 +123,8 @@ public class AlgorithmeBranchAndBound {
 		String affichageResultat = "";
 		affichageResultat += "Meilleur coût : " + resultat.getCoutOptimal() + "\n\n";
 		affichageResultat += "Nombre de majorants : " + compteurMajorants + "\n";
-		affichageResultat += "Nombre de branches coupées : " + compteurBranches + "\n\n";
+		affichageResultat += "Nombre de branches : " + compteurBranches + "\n";
+		affichageResultat += "Nombre de branches coupées : " + compteurBranchesCoupees + "\n\n";
 		for (Entry<String, ArrayList<String>> entry : resultat.getResultatsPartiels().entrySet()) {
 			affichageResultat += "\tBase" + entry.getKey() + "\n";
 			for (String entreprise : entry.getValue()) {

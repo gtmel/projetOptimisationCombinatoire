@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import model.Base;
+
 public class SacADos {
 	
 	private HashMap<String, ArrayList<String>> resultatsPartiels;
@@ -15,42 +17,26 @@ public class SacADos {
 		this.coutOptimal = 0;
 		this.tailleResultatsPartiels = 0;
 	}
+	
+	public SacADos(SacADos sacADos) {
+		HashMap<String, ArrayList<String>> tempor = new HashMap<String, ArrayList<String>>();
+		for (Entry<String, ArrayList<String>> entry : sacADos.getResultatsPartiels().entrySet()) {
+			tempor.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
+		}
+		this.resultatsPartiels = tempor;
+		this.coutOptimal = sacADos.getCoutOptimal();
+		this.tailleResultatsPartiels = sacADos.getTailleResultatsPartiels();
+		
+	}
 
 	public void ajouterEntree(String base, ArrayList<String> entreprises) {
 		resultatsPartiels.put(base, entreprises);
 		tailleResultatsPartiels ++;
 	}
 	
-//	public void ajouterEntreprise(String base, String entreprise) {
-//		boolean estPresent = false;
-//		for (Entry<String, ArrayList<String>> entry : resultatsPartiels.entrySet()) {
-//			if (entry.getValue().contains(entreprise)) {
-//				estPresent = true;
-//			}
-//		}
-//		if (!estPresent) {
-//			ArrayList<String> temporaire = new ArrayList<String>(resultatsPartiels.get(base));
-//			temporaire.add(entreprise);
-//			resultatsPartiels.put(base, temporaire);
-//			tailleResultatsPartiels ++;
-//		}
-//	}
-	
 	public void ajouterEntreprise(String base, String entreprise) {
-		boolean estPresent = false;
-		for (Entry<String, ArrayList<String>> entry : resultatsPartiels.entrySet()) {
-			if (entry.getValue().contains(entreprise)) {
-				estPresent = true;
-			}
-		}
-		if (!estPresent) {
-			//ArrayList<String> temporaire = new ArrayList<String>(resultatsPartiels.get(base));
-			//temporaire.add(entreprise);
-			//resultatsPartiels.put(base, temporaire);
-			ArrayList<String> test = resultatsPartiels.get(base);
-			test.add(entreprise);
-			tailleResultatsPartiels ++;
-		}
+		resultatsPartiels.get(base).add(entreprise);
+		tailleResultatsPartiels ++;
 	}
 
 	public boolean testResultatsPartiels(int tailleListeEntrepriseInitial) {
@@ -63,25 +49,24 @@ public class SacADos {
 	public int getCoutOptimal() {
 		return coutOptimal;
 	}
-
-	public void setCoutOptimal(int coutOptimal) {
-		this.coutOptimal = coutOptimal;
+	
+	public void incrementerCoutOptimal(int increment) {
+		coutOptimal += increment;
 	}
 	
 	public HashMap<String, ArrayList<String>> getResultatsPartiels() {
 		return resultatsPartiels;
 	}
 	
-	public void setResultatsPartiels(HashMap<String, ArrayList<String>> resultatsPartiels) {
-		this.resultatsPartiels = resultatsPartiels;
-		modifierCoutOptimal();
+	public int getTailleResultatsPartiels() {
+		return tailleResultatsPartiels;
 	}
 	
-	private void modifierCoutOptimal() {
-		for (Entry<String, ArrayList<String>> entry : resultatsPartiels.entrySet()) {
-			for (int i = 0; i < entry.getValue().size(); i++) {
-				tailleResultatsPartiels++;
-			}
+	public boolean rechercherBase(Base base) {
+		if (resultatsPartiels.containsKey(base.getNomBase())) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 
