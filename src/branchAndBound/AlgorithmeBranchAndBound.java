@@ -32,8 +32,6 @@ public class AlgorithmeBranchAndBound {
 		this.logs = "";
 		
 		rechercheOptimale(sacADos, 0);
-		
-		//System.out.println(logs);
 	}
 	
 	public void rechercheOptimale(SacADos sacADos, int increment) {
