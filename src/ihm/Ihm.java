@@ -202,10 +202,7 @@ public class Ihm {
 					textAreaResultats.append(algoGlouton.afficherResultat());
 					logs.setLogs(algoGlouton.getLogs());
 					btnLogs.setVisible(true);
-				}
-				
-				
-				
+				}			
 			}
 		});
 		
