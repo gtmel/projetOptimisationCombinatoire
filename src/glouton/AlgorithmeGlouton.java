@@ -13,11 +13,13 @@ public class AlgorithmeGlouton {
 	private HashMap<String, ArrayList<String>> resultatListe;
 	private int resultatCout;
 	
+	private String logs;
+	
 	public AlgorithmeGlouton(Model model) {
 		this.model = model;
 		this.resultatListe = new HashMap<String, ArrayList<String>>();
 		this.resultatCout = 0;
-		
+		this.logs = "";
 		rechercheGlouton(0);
 	}
 	
@@ -34,6 +36,15 @@ public class AlgorithmeGlouton {
 			
 			// Pour chaque base contenant l'entreprise 
 			for (Base base : model.getEntreprisesBases().get(nomEntreprise)) {
+				
+				logs += "\n";
+				for (int i = 0; i < increment; i++) {
+					logs += "\t";
+				}
+				logs += "INCREMENT : " + increment + ", ";
+				logs += "ENTREPRISE : " + nomEntreprise + ", ";
+				logs += "BASE -> " + base.getNomBase() + ", ";
+				
 				if (!estPresent) {
 					for (Entry<String, ArrayList<String>> entry : resultatListe.entrySet()) {
 						if (entry.getKey().equals(base.getNomBase()) && "".equals(meilleurChoixBase)) {
@@ -80,6 +91,10 @@ public class AlgorithmeGlouton {
 			affichageResultat += "\n";
 		}
 		return affichageResultat;
+	}
+	
+	public String getLogs() {
+		return logs;
 	}
 
 }

@@ -200,6 +200,8 @@ public class Ihm {
 					long fin = System.currentTimeMillis();
 					textAreaResultats.append("EXECUTION DE L'ALGORITHME GLOUTON : " + (fin - inter) + " ms\n\n");
 					textAreaResultats.append(algoGlouton.afficherResultat());
+					logs.setLogs(algoGlouton.getLogs());
+					btnLogs.setVisible(true);
 				}
 				
 				
