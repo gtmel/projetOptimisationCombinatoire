@@ -47,9 +47,12 @@ public class AlgorithmeBranchAndBound {
 			for (Base base : model.getEntreprisesBases().get(nomEntreprise)) {
 					
 				logs += "\n";
-				logs += "********** INCREMENT : " + increment + " **********";
-				logs += "---------- ENTREPRISE : " + nomEntreprise + " ----------";
-				logs += "BASE -> " + base.getNomBase();
+				for (int i = 0; i < increment; i++) {
+					logs += "\t";
+				}
+				logs += "INCREMENT : " + increment + ", ";
+				logs += "ENTREPRISE : " + nomEntreprise + ", ";
+				logs += "BASE -> " + base.getNomBase() + ", ";
 				
 				SacADos nouveauSac = new SacADos(sacADos);
 				
@@ -58,10 +61,11 @@ public class AlgorithmeBranchAndBound {
 					ArrayList<String> nouvelleListeEntreprises = new ArrayList<String>();
 					nouvelleListeEntreprises.add(nomEntreprise);
 					nouveauSac.ajouterEntree(base.getNomBase(), nouvelleListeEntreprises);
+					// On ajoute le coût de la base ouverte au coût optimal
 					nouveauSac.incrementerCoutOptimal(base.getCoutBase());
 				} else {
 					nouveauSac.ajouterEntreprise(base.getNomBase(), nomEntreprise);
-					nouveauSac.incrementerCoutOptimal(0);
+					// On incrémente pas le coût optimal puisque la base était déjà ouverte
 				}
 				
 				logs += nouveauSac.toString();
@@ -85,38 +89,6 @@ public class AlgorithmeBranchAndBound {
 				}
 			}
 		}
-	}
-
-	public Model getModel() {
-		return model;
-	}
-
-	public void setModel(Model model) {
-		this.model = model;
-	}
-
-	public SacADos getSacADos() {
-		return sacADos;
-	}
-
-	public void setSacADos(SacADos sacADos) {
-		this.sacADos = sacADos;
-	}
-
-	public SacADos getResultat() {
-		return resultat;
-	}
-
-	public void setResultat(SacADos resultat) {
-		this.resultat = resultat;
-	}
-
-	public int getMajorant() {
-		return majorant;
-	}
-
-	public void setMajorant(int majorant) {
-		this.majorant = majorant;
 	}
 	
 	public String afficherResultat() {

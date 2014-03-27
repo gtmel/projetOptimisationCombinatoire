@@ -36,13 +36,16 @@ import java.awt.event.ActionEvent;
 
 public class Ihm {
 
-	private JFrame frame;
+	private JFrame frmOptimisationCombinatoire;
 	private JList<String> listeEntreprises;
 	private JList<String> listeBases;
 	private JRadioButton rdbtnBranchBound;
 	private JRadioButton rdbtnGlouton;
 	private ButtonGroup choixAlgorithme;
 	private JTextArea textAreaResultats;
+	
+	private JButton btnLogs;
+	private Logs logs;
 	
 	/**
 	 * Launch the application.
@@ -52,7 +55,7 @@ public class Ihm {
 			public void run() {
 				try {
 					Ihm window = new Ihm();
-					window.frame.setVisible(true);
+					window.frmOptimisationCombinatoire.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -71,14 +74,17 @@ public class Ihm {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 659, 465);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		frmOptimisationCombinatoire = new JFrame();
+		frmOptimisationCombinatoire.setTitle("Optimisation combinatoire");
+		frmOptimisationCombinatoire.setBounds(100, 100, 659, 465);
+		frmOptimisationCombinatoire.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmOptimisationCombinatoire.getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		logs = new Logs();
 		
 		JPanel panelResultats = new JPanel();
 		panelResultats.setBorder(new TitledBorder(null, "R\u00E9sultats", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		frame.getContentPane().add(panelResultats, BorderLayout.CENTER);
+		frmOptimisationCombinatoire.getContentPane().add(panelResultats, BorderLayout.CENTER);
 		panelResultats.setLayout(new BorderLayout(0, 0));
 		
 		textAreaResultats = new JTextArea();
@@ -88,7 +94,7 @@ public class Ihm {
 		textAreaResultats.setEditable(false);
 		
 		JPanel panelOptions = new JPanel();
-		frame.getContentPane().add(panelOptions, BorderLayout.WEST);
+		frmOptimisationCombinatoire.getContentPane().add(panelOptions, BorderLayout.WEST);
 		panelOptions.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panelAlgorithmes = new JPanel();
@@ -139,7 +145,7 @@ public class Ihm {
 		panelBases.add(listeBases, BorderLayout.CENTER);
 		
 		JPanel panelLancer = new JPanel();
-		frame.getContentPane().add(panelLancer, BorderLayout.SOUTH);
+		frmOptimisationCombinatoire.getContentPane().add(panelLancer, BorderLayout.SOUTH);
 		panelLancer.setLayout(new BoxLayout(panelLancer, BoxLayout.X_AXIS));
 		
 		Box horizontalBoxLancement = Box.createHorizontalBox();
@@ -153,7 +159,11 @@ public class Ihm {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				// Nettoyage de l'écran des résultat 
+				// Masquage du bouton logs
+				// Masquage de l'écran des logs
 				textAreaResultats.setText("");
+				btnLogs.setVisible(false);
+				logs.setVisible(false);
 				
 				// Initialisation du compteur temps;
 				long debut = System.currentTimeMillis();
@@ -180,6 +190,8 @@ public class Ihm {
 					long fin = System.currentTimeMillis();
 					textAreaResultats.append("EXECUTION DE L'ALGORITHME DE BRANCH & BOUND : " + (fin - inter) + " ms\n\n");
 					textAreaResultats.append(algoBB.afficherResultat());
+					logs.setLogs(algoBB.getLogs());
+					btnLogs.setVisible(true);
 				}
 				
 				if (rdbtnGlouton.isSelected()) {
@@ -194,6 +206,15 @@ public class Ihm {
 				
 			}
 		});
+		
+		btnLogs = new JButton("Logs");
+		btnLogs.setVisible(false);
+		btnLogs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				logs.setVisible(true);
+			}
+		});
+		horizontalBoxLancement.add(btnLogs);
 		btnLancer.setHorizontalAlignment(SwingConstants.RIGHT);
 		horizontalBoxLancement.add(btnLancer);
 	}
