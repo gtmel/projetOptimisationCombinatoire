@@ -39,8 +39,8 @@ public class SacADos {
 		tailleResultatsPartiels ++;
 	}
 
-	public boolean testResultatsPartiels(int tailleListeEntrepriseInitial) {
-		if (tailleListeEntrepriseInitial == tailleResultatsPartiels) {
+	public boolean testResultatsPartiels(int tailleListeEntrepriseInitiale) {
+		if (tailleListeEntrepriseInitiale == tailleResultatsPartiels) {
 			return true;
 		}
 		return false;
