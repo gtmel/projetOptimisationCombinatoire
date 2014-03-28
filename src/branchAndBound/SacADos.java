@@ -38,13 +38,6 @@ public class SacADos {
 		resultatsPartiels.get(base).add(entreprise);
 		tailleResultatsPartiels ++;
 	}
-
-	public boolean testResultatsPartiels(int tailleListeEntrepriseInitiale) {
-		if (tailleListeEntrepriseInitiale == tailleResultatsPartiels) {
-			return true;
-		}
-		return false;
-	}
 	
 	public int getCoutOptimal() {
 		return coutOptimal;
@@ -68,13 +61,6 @@ public class SacADos {
 		} else {
 			return false;
 		}
-	}
-
-	public String toString() {
-		String affichage = "";
-		affichage += "Coût = " + coutOptimal;
-		affichage += resultatsPartiels.toString();
-		return affichage;
 	}
 	
 }

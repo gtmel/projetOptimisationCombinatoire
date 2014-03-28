@@ -182,13 +182,14 @@ public class Ihm {
 				
 				// Temps intermédiaire = chargement des fichiers
 				long inter = System.currentTimeMillis();
-				textAreaResultats.append("CHARGEMENT DES FICHIERS : " + (inter - debut) + " ms\n");
+				textAreaResultats.append(" CHARGEMENT DES FICHIERS : " + (inter - debut) + " ms\n");
 				
 				if (rdbtnBranchBound.isSelected()) {
 					AlgorithmeBranchAndBound algoBB = new AlgorithmeBranchAndBound(model);
+					algoBB.executer();
 					// Temps final = temps d'éxecution de l'algorithme
 					long fin = System.currentTimeMillis();
-					textAreaResultats.append("EXECUTION DE L'ALGORITHME DE BRANCH & BOUND : " + (fin - inter) + " ms\n\n");
+					textAreaResultats.append(" EXECUTION DE L'ALGORITHME DE BRANCH & BOUND : " + (fin - inter) + " ms\n\n");
 					textAreaResultats.append(algoBB.afficherResultat());
 					logs.setLogs(algoBB.getLogs());
 					btnLogs.setVisible(true);
@@ -198,7 +199,7 @@ public class Ihm {
 					AlgorithmeGlouton algoGlouton = new AlgorithmeGlouton(model);
 					// Temps final = temps d'éxecution de l'algorithme
 					long fin = System.currentTimeMillis();
-					textAreaResultats.append("EXECUTION DE L'ALGORITHME GLOUTON : " + (fin - inter) + " ms\n\n");
+					textAreaResultats.append(" EXECUTION DE L'ALGORITHME GLOUTON : " + (fin - inter) + " ms\n\n");
 					textAreaResultats.append(algoGlouton.afficherResultat());
 					logs.setLogs(algoGlouton.getLogs());
 					btnLogs.setVisible(true);
