@@ -71,10 +71,9 @@ public class AlgorithmeBranchAndBound {
 				if(!nouveauSac.testResultatsPartiels(model.getEntreprises().size())) {
 					if (nouveauSac.getCoutOptimal() < majorant || majorant == -1) {
 						rechercheOptimale(nouveauSac, increment + 1);
-						compteurBranches++;
 					} else {
 						compteurBranchesCoupees++;
-						logs += " ---> BRANCHE";
+						logs += " ---> ELAGAGE";
 					}
 				} else {
 					compteurBranches++;
