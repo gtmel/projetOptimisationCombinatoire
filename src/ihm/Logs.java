@@ -47,6 +47,7 @@ public class Logs extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		textAreaLogs = new JTextArea();
+		textAreaLogs.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(textAreaLogs, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 	}

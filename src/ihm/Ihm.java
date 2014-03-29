@@ -33,6 +33,7 @@ import readers.Lecteur;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ListSelectionModel;
 
 public class Ihm {
 
@@ -124,6 +125,8 @@ public class Ihm {
 		verticalBoxChoix.add(rdbtnGlouton);
 		choixAlgorithme.add(rdbtnGlouton);
 		
+		rdbtnBranchBound.setSelected(true);
+		
 		JPanel panelEntreprisesBases = new JPanel();
 		panelOptions.add(panelEntreprisesBases, BorderLayout.NORTH);
 		panelEntreprisesBases.setLayout(new BorderLayout(0, 0));
@@ -134,7 +137,9 @@ public class Ihm {
 		panelEntreprises.setLayout(new BorderLayout(0, 0));
 		
 		listeEntreprises = new JList<String>(remplirListeEntreprises());
+		listeEntreprises.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		panelEntreprises.add(listeEntreprises, BorderLayout.CENTER);
+		listeEntreprises.setSelectedIndex(0);
 		
 		JPanel panelBases = new JPanel();
 		panelBases.setBorder(new TitledBorder(null, "Bases", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -142,7 +147,9 @@ public class Ihm {
 		panelBases.setLayout(new BorderLayout(0, 0));
 		
 		listeBases = new JList<String>(remplirListeBases());
+		listeBases.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		panelBases.add(listeBases, BorderLayout.CENTER);
+		listeBases.setSelectedIndex(0);
 		
 		JPanel panelLancer = new JPanel();
 		frmOptimisationCombinatoire.getContentPane().add(panelLancer, BorderLayout.SOUTH);
